@@ -35,7 +35,6 @@ fn handle_client(uid: Uid, server: Channel<Action>, stream: TcpStream) {
         // (1) check for message to send to server for broadcasting
         match server.try_recv() {
             Ok(Action::Message(message)) => {
-                println!("messsage received by server: {}", message.content);
                 writer
                     .write(
                         format!(
@@ -68,9 +67,7 @@ fn handle_client(uid: Uid, server: Channel<Action>, stream: TcpStream) {
                 server.send(Action::Message(message)).unwrap();
                 buf.clear();
             }
-            Err(err) => {
-                println!("there was an error {}", err);
-            }
+            Err(err) => { }
         }
     }
 }
